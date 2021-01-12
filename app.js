@@ -46,17 +46,24 @@ function enterEmployeeInformation(jobTitle) {
             },
             {
                 type: "input",
-                message: "What is your Engineer's office number?",
-                name: "officeNumber",
-                when: answers => answers.role === "Manager"
+                message: "What is your Engineer's Github Username?",
+                name: "githubUsername",
+                when: answers => answers.role === "Engineer"
             },
-
+            {
+                type: "input",
+                message: "What is your Intern's school?",
+                name: "school",
+                when: answers => answers.role === "Intern"
+            },
             {
                 type: "list",
-                message: "Do you have anymore employees to enter? [Y] Yes / [N] No",
+                message: "Do you have anymore employees to enter?",
+                choices: ["Yes", "No"],
                 name: "moreQuestions"
             }
         ]).then(data => {
+
 
         }).catch(err => {
             console.log(err);

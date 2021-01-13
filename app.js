@@ -10,6 +10,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+let employeeList = [];
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
@@ -21,12 +22,6 @@ function enterEmployeeInformation(jobTitle) {
                 type: "input",
                 message: `What is your ${jobTitle}'s name?`,
                 name: "name"
-            },
-            {
-                type: "list",
-                message: `What is your ${jobTitle}'s role?`,
-                choices: ["Manager", "Engineer", "Intern"],
-                name: "role"
             },
             {
                 type: "input",
@@ -42,34 +37,56 @@ function enterEmployeeInformation(jobTitle) {
                 type: "input",
                 message: "What is your Managers's office number?",
                 name: "officeNumber",
-                when: answers => answers.role === "Manager"
+                when: jobTitle === "Manager"
             },
             {
                 type: "input",
                 message: "What is your Engineer's Github Username?",
                 name: "githubUsername",
-                when: answers => answers.role === "Engineer"
+                when: jobTitle === "Engineer"
             },
             {
                 type: "input",
                 message: "What is your Intern's school?",
                 name: "school",
-                when: answers => answers.role === "Intern"
+                when: jobTitle === "Intern"
+            },
+            {
+                type: "confirm",
+                message: "Do you have anymore employees to enter?",
+                name: "moreQuestions"
             },
             {
                 type: "list",
-                message: "Do you have anymore employees to enter?",
-                choices: ["Yes", "No"],
-                name: "moreQuestions"
+                message: `What is the next employee's role?`,
+                choices: ["Manager", "Engineer", "Intern"],
+                name: "role",
+                when: answers => answers.moreQuestions
+            },
+        ]).then(answers => {
+            if (jobTitle === "Manager") {
+                employeeList.push(new Manager(answers.name, answers.id, answers.email, answers.officeNumber));
             }
-        ]).then(data => {
+            else if (jobTitle === "Engineer") {
+                employeeList.push(new Engineer(answers.name, answers.id, answers.email, answers.githubUsername));
+            }
+            else if (jobTitle === "Intern") {
+                employeeList.push(new Intern(answers.name, answers.id, answers.email, answers.school));
+            }
 
-
+            console.log(employeeList);
+            if (answers.moreQuestions) {
+                enterEmployeeInformation(answers.role);
+            }
+            else {
+                render(employeeList);
+            }
         }).catch(err => {
             console.log(err);
         });
 }
 
+enterEmployeeInformation("Manager");
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!

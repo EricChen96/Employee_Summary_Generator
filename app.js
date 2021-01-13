@@ -42,7 +42,7 @@ function enterEmployeeInformation(jobTitle) {
             {
                 type: "input",
                 message: "What is your Engineer's Github Username?",
-                name: "githubUsername",
+                name: "github",
                 when: jobTitle === "Engineer"
             },
             {
@@ -68,18 +68,19 @@ function enterEmployeeInformation(jobTitle) {
                 employeeList.push(new Manager(answers.name, answers.id, answers.email, answers.officeNumber));
             }
             else if (jobTitle === "Engineer") {
-                employeeList.push(new Engineer(answers.name, answers.id, answers.email, answers.githubUsername));
+                employeeList.push(new Engineer(answers.name, answers.id, answers.email, answers.github));
             }
             else if (jobTitle === "Intern") {
                 employeeList.push(new Intern(answers.name, answers.id, answers.email, answers.school));
             }
 
-            console.log(employeeList);
             if (answers.moreQuestions) {
                 enterEmployeeInformation(answers.role);
             }
             else {
-                render(employeeList);
+                fs.writeFile(outputPath, render(employeeList), (err) =>
+                    err ? console.error(err) : console.log('Success!')
+                );
             }
         }).catch(err => {
             console.log(err);

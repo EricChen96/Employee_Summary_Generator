@@ -46,3 +46,5 @@ test("Employee Test - getRole() should return \"Employee\"", () => {
   const e = new Employee("Alice", 1, "test@test.com");
   expect(e.getRole()).toBe(testValue);
 });
+
+//throw new Error("Description must be string")

@@ -1,11 +1,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Employee_Summary_Generator
 
-![Employee Summary Generator](./Assets/README_Screenshot.png)
-![Employee Summary Preview Generator](./Assets/README_Preview_Screenshot.png)
+![Employee Summary Generator](./Assets/Employee_Summary_Commandline_Screenshot.png)
+![Employee Summary Preview Generator](./Assets/Employee_Summary_Preview_Screenshot.png)
 
-[Link to Github repository](https://github.com/EricChen96/Readme_Generator) <br>
-[Link to video](https://www.youtube.com/watch?v=mUJ5uQBKxL4&feature=youtu.be) <br>
+[Link to Github repository](https://github.com/EricChen96/Employee_Summary_Generator) <br>
+[Link to video](https://www.youtube.com/watch?v=q35yutkwI7M&feature=youtu.be) <br>
 
 ## Description
 The following code would ask the user a series of questions about their team and each member's information. It'll record that information until there is no employees left and then create an html doc showing a summary of the team. 
